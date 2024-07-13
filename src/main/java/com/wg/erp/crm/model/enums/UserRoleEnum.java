@@ -1,4 +1,4 @@
-package com.wg.erp.model.enums;
+package com.wg.erp.crm.model.enums;
 
 public enum UserRoleEnum {
     ADMIN,

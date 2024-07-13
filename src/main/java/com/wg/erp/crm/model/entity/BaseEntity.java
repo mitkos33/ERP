@@ -1,4 +1,4 @@
-package com.wg.erp.model.entity;
+package com.wg.erp.crm.model.entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

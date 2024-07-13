@@ -1,4 +1,4 @@
-package com.wg.erp.model.entity;
+package com.wg.erp.crm.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class UserEntity extends BaseEntity {
+public class User extends BaseEntity {
     @Column(unique = true)
     private String email;
 
@@ -30,13 +30,13 @@ public class UserEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<UserRoleEntity> roles = new ArrayList<>();
+    private List<UserRole> roles = new ArrayList<>();
 
     public String getEmail() {
         return email;
     }
 
-    public UserEntity setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -45,7 +45,7 @@ public class UserEntity extends BaseEntity {
         return password;
     }
 
-    public UserEntity setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
         return this;
     }
@@ -54,7 +54,7 @@ public class UserEntity extends BaseEntity {
         return firstName;
     }
 
-    public UserEntity setFirstName(String firstName) {
+    public User setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -63,16 +63,16 @@ public class UserEntity extends BaseEntity {
         return lastName;
     }
 
-    public UserEntity setLastName(String lastName) {
+    public User setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public List<UserRoleEntity> getRoles() {
+    public List<UserRole> getRoles() {
         return roles;
     }
 
-    public UserEntity setRoles(List<UserRoleEntity> roles) {
+    public User setRoles(List<UserRole> roles) {
         this.roles = roles;
         return this;
     }
