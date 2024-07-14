@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <meta name="description" content="Login">
+		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
+        <meta name="author" content="Dimitar Penchev">
+        <meta name="robots" content="noindex, nofollow">
+        <title>Login - ERP | WG</title>
+		
+		<!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png">
+		
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+		
+        <!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+		
+		<!-- Main CSS -->
+        <link rel="stylesheet" href="/css/style.css">
+		
+    </head>
+    <body class="account-page">
+
+        <div id="global-loader" >
+			<div class="whirly-loader"> </div>
+		</div>
+	
+		<!-- Main Wrapper -->
+        <div class="main-wrapper">
+			<div class="account-content">
+				<div class="login-wrapper">
+                    <div class="login-content">
+                        <form th:method="post" th:action="@{/users/login}">
+                            <div class="login-userset">
+
+                               <div class="login-userheading">
+                                   <h3 th:text="#{sign_in}">Sign In</h3>
+                                   <h4 th:if="${loginError}" th:text="#{error_user_login}" class="errors alert alert-danger">Invalid user and password</h4>
+                               </div>
+                              <div class="form-login">
+                                   <label>Email</label>
+                                   <div class="form-addons">
+                                       <input type="text" class="form-control"  id="email"  name="email">
+                                       <img src="/images/icons/mail.svg" alt="img">
+                                   </div>
+                               </div>
+                               <div class="form-login">
+                                   <label th:text="#{password}">Password</label>
+                                   <div class="pass-group">
+                                       <input type="password" class="pass-input"  id="password" name="password">
+                                       <span class="fas toggle-password fa-eye-slash"></span>
+                                   </div>
+                               </div>
+
+                               <div class="form-login">
+                                   <button type="submit" class="btn btn-login" th:text="#{sign}">Sign In</button>
+                               </div>
+                               <div class="signinform">
+                                   <h4>New on our platform?<a href="register-2.html" class="hover-a"> Create an account</a></h4>
+                               </div>
+                           </div>
+                        </form>
+                    </div>
+                    <div class="login-img">
+                        <img src="/images/authentication/login02.png" alt="img">
+                    </div>
+                </div>
+			</div>
+        </div>
+		<!-- /Main Wrapper -->
+
+		<div class="customizer-links" id="setdata">
+			<ul class="sticky-sidebar">
+				<li class="sidebar-icons">
+					<a href="#" class="navigation-add" data-bs-toggle="tooltip" data-bs-placement="left"
+						data-bs-original-title="Theme">
+						<i data-feather="settings" class="feather-five"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<!-- jQuery -->
+        <script src="/js/jquery-3.7.1.min.js"></script>
+
+         <!-- Feather Icon JS -->
+		<script src="/js/feather.min.js"></script>
+		
+		<!-- Bootstrap Core JS -->
+        <script src="/js/bootstrap.bundle.min.js"></script>
+		
+		<!-- Custom JS -->
+        <script src="/js/theme-script.js"></script>	
+		<script src="/js/script.js"></script>
+
+    </body>
+</html>

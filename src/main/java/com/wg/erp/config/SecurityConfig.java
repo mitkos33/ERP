@@ -1,7 +1,7 @@
 package com.wg.erp.config;
 
-import com.wg.erp.crm.repository.UserRepository;
-import com.wg.erp.crm.service.ErpUserDetailService;
+import com.wg.erp.repository.UserRepository;
+import com.wg.erp.service.ErpUserDetailService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ public class SecurityConfig {
                         authorizeRequests ->
                                 authorizeRequests
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                        .requestMatchers("/", "/users/login", "/users/register").permitAll()
+                                        .requestMatchers("/", "/users/login","users/login-error", "/users/register").permitAll()
                                         .anyRequest()
                                         .authenticated()
                 )
@@ -30,7 +30,7 @@ public class SecurityConfig {
                                 .usernameParameter("email")
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/", true)
-                                .failureForwardUrl("/users/login-error")
+                                .failureUrl("/users/login-error")
                 )
                 .logout(
                         logout ->
