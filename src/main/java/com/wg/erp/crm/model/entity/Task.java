@@ -1,9 +1,9 @@
-package com.wg.crm.model.entity;
+package com.wg.erp.crm.model.entity;
 
 
 import com.wg.erp.model.entity.BaseEntity;
-import com.wg.crm.model.enums.PriorityType;
-import com.wg.crm.model.enums.StatusType;
+import com.wg.erp.crm.model.enums.PriorityType;
+import com.wg.erp.crm.model.enums.StatusType;
 import jakarta.persistence.*;
 
 @Entity

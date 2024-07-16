@@ -1,5 +1,6 @@
 package com.wg.erp.config;
 
+import com.wg.erp.model.enums.UserRoleEnum;
 import com.wg.erp.repository.UserRepository;
 import com.wg.erp.service.ErpUserDetailService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -21,6 +22,10 @@ public class SecurityConfig {
                                 authorizeRequests
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                         .requestMatchers("/", "/users/login","users/login-error", "/users/register").permitAll()
+                                        .requestMatchers("/tasks/**","/customers","/customers/**")
+                                            .hasAnyRole(
+                                                UserRoleEnum.ADMIN.name(),
+                                                UserRoleEnum.SALES.name())
                                         .anyRequest()
                                         .authenticated()
                 )
@@ -29,8 +34,14 @@ public class SecurityConfig {
                                 .loginPage("/users/login")
                                 .usernameParameter("email")
                                 .passwordParameter("password")
-                                .defaultSuccessUrl("/", true)
+                                .defaultSuccessUrl("/dashboard", true)
                                 .failureUrl("/users/login-error")
+                )
+                .rememberMe(
+                        rememberMe ->
+                                rememberMe
+                                        .key("a-secret-key")
+                                        .tokenValiditySeconds(1209600)
                 )
                 .logout(
                         logout ->

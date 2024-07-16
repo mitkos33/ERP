@@ -1,4 +1,4 @@
-package com.wg.crm.model.entity;
+package com.wg.erp.crm.model.entity;
 
 import com.wg.erp.model.entity.BaseEntity;
 import jakarta.persistence.Entity;

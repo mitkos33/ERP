@@ -38,7 +38,8 @@ public class ErpUserDetailService implements UserDetailsService {
                 userEntity.getPassword(),
                 userEntity.getRoles().stream().map(UserRole::getRole).map(ErpUserDetailService::map).toList(),
                 userEntity.getFirstName(),
-                userEntity.getLastName()
+                userEntity.getLastName(),
+                userEntity.getEmail()
         );
     }
 

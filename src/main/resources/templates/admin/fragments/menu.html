@@ -1,0 +1,39 @@
+<html lang="en"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="sidebar" id="sidebar" th:fragment="menu(activeLink)">
+    <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+            <ul>
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr" th:text="#{main}">Main</h6>
+                    <ul>
+                        <li><a href="/dashboard"><i data-feather="grid"></i><span>Dashboard</span></a></li>
+                    </ul>
+                </li>
+                <li class="submenu-open" sec:authorize="hasRole('ADMIN') or hasRole('SALES')">
+                    <h6 class="submenu-hdr">CRM</h6>
+                    <ul>
+                        <li><a href="/tasks"><i data-feather="box"></i><span th:text="#{tasks}">Tasks</span></a></li>
+                        <li><a href="/customers"><i data-feather="user"></i><span  th:text="#{customers}">Customers</span></a></li>
+                    </ul>
+                </li>
+                <li class="submenu-open" sec:authorize="hasRole('ADMIN') or hasRole('SALES')">
+                    <h6 class="submenu-hdr">Sales</h6>
+                    <ul>
+                        <li><a href="manage-stocks.html"><i data-feather="package"></i><span>Manage Stock</span></a></li>
+                        <li><a href="stock-adjustment.html"><i data-feather="clipboard"></i><span>Stock Adjustment</span></a></li>
+                        <li><a href="stock-transfer.html"><i data-feather="truck"></i><span>Stock Transfer</span></a></li>
+                    </ul>
+                </li>
+                <li class="submenu-open" sec:authorize="hasRole('ADMIN')">
+                    <h6 class="submenu-hdr">User Management</h6>
+                    <ul>
+                        <li><a href="users.html"><i data-feather="user-check"></i><span>Users</span></a></li>
+                        <li><a href="roles-permissions.html"><i data-feather="shield"></i><span>Roles & Permissions</span></a></li>
+                        <li><a href="delete-account.html"><i data-feather="lock"></i><span>Delete Account Request</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</html>

@@ -9,17 +9,20 @@ public class ErpUserDetailsModel extends User {
 
     private final String firstName;
     private final String lastName;
+    private final String email;
 
     public ErpUserDetailsModel(
             String username,
             String password,
             Collection<? extends GrantedAuthority> authorities,
             String firstName,
-            String lastName
+            String lastName,
+            String email
     ) {
         super(username, password, authorities);
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -28,6 +31,10 @@ public class ErpUserDetailsModel extends User {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getFullName() {

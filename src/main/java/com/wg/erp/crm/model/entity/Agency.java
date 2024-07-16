@@ -1,12 +1,12 @@
-package com.wg.crm.model.entity;
+package com.wg.erp.crm.model.entity;
 
 import com.wg.erp.model.entity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "clients")
-public class Client extends BaseEntity {
+@Table(name = "agencies")
+public class Agency extends BaseEntity {
 
     private String name;
 
