@@ -6,34 +6,39 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 
+
 public class ClientAddDTO{
 
     @NotNull(message = "{add.client.firstName.length}")
-    @Size(min = 2, max = 50 , message = "{add.client.firstName.length}") String firstName;
+    @Size(min = 2, max = 50 , message = "{add.client.firstName.length}")
+    private String firstName;
 
     @NotNull(message = "{add.client.lastName.length}")
-    @Size(min = 2, max = 50 , message = "{add.client.lastName.length}") String lastName;
+    @Size(min = 2, max = 50 , message = "{add.client.lastName.length}")
+    private String lastName;
 
-    String companyName;
-    String companyAddress;
+    private String companyName;
+    private String companyAddress;
 
     @NotNull(message = "{add.client.eik.invalid}")
     @Length(min = 9, max = 11, message = "{add.client.eik.invalid}")
-    String eik;
+    private String eik;
 
-    String mol;
-    boolean isVatRegistered;
-    String vatNumber;
+    private String mol;
+    private boolean isVatRegistered;
+    private String vatNumber;
 
     @NotNull(message = "{add.client.phone.length}")
     @Size(min = 6, max = 10, message = "{add.client.phone.invalid}")
-    String phone;
+    private String phone;
+
+    private String country = "bg";
 
     @Email(message = "{add.client.email.invalid}")
-    String email;
+    private String email;
 
     @Size(max = 100, message = "{add.client.description.length}")
-    String description;
+    private String description;
 
     public static ClientAddDTO empty() {
         return new ClientAddDTO();
@@ -79,20 +84,20 @@ public class ClientAddDTO{
         this.eik = eik;
     }
 
-    public String getMol() {
-        return mol;
-    }
-
-    public void setMol(String mol) {
-        this.mol = mol;
-    }
-
     public boolean isVatRegistered() {
         return isVatRegistered;
     }
 
     public void setVatRegistered(boolean vatRegistered) {
         isVatRegistered = vatRegistered;
+    }
+
+    public String getMol() {
+        return mol;
+    }
+
+    public void setMol(String mol) {
+        this.mol = mol;
     }
 
     public String getVatNumber() {
@@ -127,9 +132,19 @@ public class ClientAddDTO{
         this.description = description;
     }
 
-    public boolean getIsVatRegistered() {
-        return isVatRegistered;
+    public String getCountry() {
+        return country;
     }
 
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
+    public boolean getIsVatRegistered() {
+        return isVatRegistered ;
+    }
+
+    public void setIsVatRegistered(boolean isVatRegistered) {
+        this.isVatRegistered = isVatRegistered;
+    }
 }

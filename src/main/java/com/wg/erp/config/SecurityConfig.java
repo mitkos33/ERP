@@ -21,6 +21,7 @@ public class SecurityConfig {
                         authorizeRequests ->
                                 authorizeRequests
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                                        .requestMatchers("/plugins/**").permitAll()
                                         .requestMatchers("/", "/users/login","users/login-error", "/users/register").permitAll()
                                         .requestMatchers("/tasks/**","/customers","/customers/**")
                                             .hasAnyRole(

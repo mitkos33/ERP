@@ -5,12 +5,8 @@ import com.wg.erp.crm.model.dto.ClientAddDTO;
 import com.wg.erp.crm.model.entity.Client;
 import com.wg.erp.crm.repository.ClientRepository;
 import com.wg.erp.model.entity.User;
-import com.wg.erp.model.user.ErpUserDetailsModel;
 import com.wg.erp.repository.UserRepository;
-import com.wg.erp.repository.UserRoleRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

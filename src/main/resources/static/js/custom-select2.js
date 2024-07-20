@@ -31,7 +31,7 @@ $("#select2-with-placeholder").select2({
         if (!state.id) {
             return state.text;
         }
-        var baseUrl = "../assets/images/faces/select2";
+        var baseUrl = "..//images/faces/select2";
         var $state = $(
             '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.jpg" class="img-flag" /> ' + state.text + '</span>'
         );
@@ -46,7 +46,7 @@ $("#select2-with-placeholder").select2({
     function selectClient(client) {
         if (!client.id) { return client.text; }
         var $client = $(
-            '<span><img src="../assets/images/faces/select2/' + client.element.value.toLowerCase() + '.jpg" /> '
+            '<span><img src="..//images/faces/select2/' + client.element.value.toLowerCase() + '.jpg" /> '
             + client.text + '</span>'
         );
         return $client;

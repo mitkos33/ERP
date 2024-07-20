@@ -16,23 +16,18 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-    <!-- Datetimepicker CSS -->
-    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
-
     <!-- animation CSS -->
     <link rel="stylesheet" href="/css/animate.css">
-
-    <!-- Feathericon CSS -->
-    <link rel="stylesheet" href="/css/feather.css">
 
     <!-- Select2 CSS -->
     <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 
-    <!-- Summernote CSS -->
-    <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
 
-    <!-- Bootstrap Tagsinput CSS -->
-    <link rel="stylesheet" href="/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
+    <!-- Mobile CSS-->
+    <link rel="stylesheet" href="/plugins/intltelinput/css/intlTelInput.css">
+    <link rel="stylesheet" href="/plugins/intltelinput/css/demo.css">
 
     <!-- Datatable CSS -->
     <link rel="stylesheet" href="/css/dataTables.bootstrap5.min.css">
@@ -119,7 +114,8 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label" th:text="#{customer_phone}">Contact Number</label>
-                                        <input type="text" required minlength="6" maxlength="10" th:field="*{phone}" th:errorclass="is-invalid" class="form-control">
+                                        <input type="text" required minlength="6" maxlength="10" th:field="*{phone}" th:errorclass="is-invalid" class="form-control form-control-lg group_formcontrol">
+                                        <input type="hidden" id="country" th:field="*{country}">
                                         <div class="invalid-feedback ">
                                             <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone is required</span>
                                         </div>
@@ -163,10 +159,12 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" th:text="#{customer_company_vat_number}">  VAT</label>
-                                            <input type="checkbox" id="isVatRegistered" class="check" th:field="*{isVatRegistered}">
-                                            <label for="isVatRegistered" class="checktoggle"></label>
+                                        <div class="mb-3 ">
+                                            <div class="status-toggle modal-status d-flex justify-content-between align-items-center">
+                                                <span class="status-label"  th:text="#{customer_company_vat_number}">VAT</span>
+                                                <input type="checkbox" id="isVatRegistered" class="check" name="isVatRegistered"  th:attr="checked=${addClientDTO.isVatRegistered} ? 'true' : false"  >
+                                                <label for="isVatRegistered" class="checktoggle"></label>
+                                            </div>
                                             <input type="text" class="form-control" th:field="*{vatNumber}">
                                         </div>
                                     </div>
@@ -197,6 +195,26 @@
     </div>
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var input = document.querySelector("#phone");
+        var country = document.querySelector("#country");
+
+        var iti = window.intlTelInput(input, {
+            // any initialisation options go here
+        });
+
+        // Event listener for country change
+        input.addEventListener("countrychange", function() {
+            var countryCode = iti.getSelectedCountryData().iso2;
+            country.value = countryCode;
+        });
+
+        iti.setCountry(country.value);
+        document.getElementById("country").value = country.value;
+    });
+</script>
 <!-- /Main Wrapper -->
 
 <!-- jQuery -->
@@ -215,29 +233,22 @@
 <!-- Bootstrap Core JS -->
 <script src="/js/bootstrap.bundle.min.js"></script>
 
-<!-- Summernote JS -->
-<script src="/plugins/summernote/summernote-bs4.min.js"></script>
-
-<!-- Select2 JS -->
-<script src="/plugins/select2/js/select2.min.js"></script>
-
 <!-- Datetimepicker JS -->
 <script src="/js/moment.min.js"></script>
 <script src="/js/bootstrap-datetimepicker.min.js"></script>
 
-<!-- Bootstrap Tagsinput JS -->
-<script src="/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+<!-- Mobile Input -->
+<script src="/plugins/intltelinput/js/intlTelInput.js"></script>
+
+<!-- Select2 JS -->
+<script src="/plugins/select2/js/select2.min.js"></script>
 
 <!-- Sweetalert 2 -->
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
-<!-- Custom JS -->
-
-<script src="/js/theme-script.js"></script>
+<!-- Custom JS --><script src="/js/theme-script.js"></script>
 <script src="/js/script.js"></script>
-
-<!--<script src="/js/theme-settings.js"></script>-->
 
 
 </body>

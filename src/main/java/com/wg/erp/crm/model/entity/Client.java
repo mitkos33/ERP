@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
 
 
 @Entity
@@ -23,9 +24,17 @@ public class Client extends BaseEntity {
     private boolean isVatRegistered = false;
     private String vatNumber;
     private String phone;
+    private String country = "bg";
     private String email;
     private String description;
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     public String getFirstName() {
         return firstName;
