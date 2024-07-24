@@ -1,6 +1,7 @@
 package com.wg.erp.crm.web;
 
 import com.wg.erp.crm.model.entity.Task;
+import com.wg.erp.crm.model.enums.PriorityType;
 import com.wg.erp.crm.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +46,8 @@ public class TaskController {
         model.addAttribute("todayTasksCount", todayTasks.size());
         model.addAttribute("otherTasks", otherTasks);
         model.addAttribute("allDoneTasks", allDoneTasks);
-        model.addAttribute("allOpenTaskCount", allDoneTasks.size() + todayTasks.size());
+        model.addAttribute("allOpenTaskCount", allDoneTasks.size());
+        model.addAttribute("priorityTypes", PriorityType.values());
 
         return "admin/tasks";
     }
