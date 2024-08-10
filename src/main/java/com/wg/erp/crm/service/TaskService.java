@@ -1,8 +1,14 @@
 package com.wg.erp.crm.service;
 
+import com.wg.erp.crm.model.dto.ClientAddDTO;
+import com.wg.erp.crm.model.dto.TaskAddDTO;
+import com.wg.erp.crm.model.entity.Client;
 import com.wg.erp.crm.model.entity.Task;
 import com.wg.erp.crm.model.enums.StatusType;
 import com.wg.erp.crm.repository.TaskRepository;
+import com.wg.erp.model.entity.User;
+import com.wg.erp.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +20,13 @@ import java.util.*;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
     }
 
     public Map<String,List<Task>> getAllActiveTasks() {
@@ -54,5 +64,32 @@ public class TaskService {
                 });
 
         return otherTasks;
+    }
+
+    public void addTask(TaskAddDTO taskAddDTO, String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty()) {
+            throw new IllegalArgumentException("User with email " + email + " not found!");
+        }
+        Task taskEntity = mapTaskAddDTO(taskAddDTO);
+        taskEntity.setCreatedBy(user.get());
+        this.taskRepository.save(taskEntity);
+    }
+
+    public Task mapTaskAddDTO(TaskAddDTO taskAddDTO) {
+        return  modelMapper.map(taskAddDTO, Task.class);
+    }
+
+    public void updateTask(TaskAddDTO taskAddDTO, long taskId) {
+        Task task = this.taskRepository.findById(taskId)
+                .orElseThrow(() -> new IllegalArgumentException("Task with id " + taskId + " not found!"));
+        modelMapper.map(taskAddDTO, task);
+        this.taskRepository.save(task);
+    }
+
+    public TaskAddDTO findById(Long id) {
+        Task task = this.taskRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Task with id " + id + " not found!"));
+        return modelMapper.map(task, TaskAddDTO.class);
     }
 }

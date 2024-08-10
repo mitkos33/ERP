@@ -104,7 +104,7 @@
                         </li>
                     </ul>
                     <div class="page-btn">
-                        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#note-units"><i data-feather="plus-circle" class="me-2"></i> Add Task </a>
+                        <a th:href="@{/tasks/add}" class="btn btn-added"><i data-feather="plus-circle" class="me-2"></i> <span th:text="#{task_new}">Add Task</span> </a>
                     </div>
                 </div>
             </div>
@@ -203,7 +203,7 @@
                                                                         <i class="fas fa-ellipsis-v"></i>
                                                                     </a>
                                                                     <div class="dropdown-menu notes-menu dropdown-menu-end">
-                                                                        <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-note-units"><span><i data-feather="edit"></i></span>Edit</a>
+                                                                        <a th:href="@{/tasks/add/{id}(id=*{id})}" class="dropdown-item" ><span><i data-feather="edit"></i></span>Edit</a>
                                                                         <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-note-units"><span><i data-feather="trash-2"></i></span>Delete</a>
                                                                         <a href="#" class="dropdown-item"><span><i data-feather="star"></i></span>Not Important</a>
                                                                         <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#view-note-units"><span><i data-feather="eye"></i></span>View</a>
@@ -255,7 +255,7 @@
                                                                         <i class="fas fa-ellipsis-v"></i>
                                                                     </a>
                                                                     <div class="dropdown-menu notes-menu dropdown-menu-end">
-                                                                        <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-note-units"><span><i data-feather="edit"></i></span>Edit</a>
+                                                                        <a  th:href="@{/tasks/add/{id}(id=*{id})}" class="dropdown-item"><span><i data-feather="edit"></i></span>Edit</a>
                                                                         <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-note-units"><span><i data-feather="trash-2"></i></span>Delete</a>
                                                                         <a href="#" class="dropdown-item"><span><i data-feather="star"></i></span>Not Important</a>
                                                                         <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#view-note-units"><span><i data-feather="eye"></i></span>View</a>
@@ -301,7 +301,7 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu notes-menu dropdown-menu-end">
-                                                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-note-units"><span><i data-feather="edit"></i></span>Edit</a>
+                                                    <a  th:href="@{/tasks/add/{id}(id=*{id})}" class="dropdown-item" ><span><i data-feather="edit"></i></span>Edit</a>
                                                     <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-note-units"><span><i data-feather="trash-2"></i></span>Delete</a>
                                                 </div>
                                             </div>

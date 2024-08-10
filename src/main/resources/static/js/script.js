@@ -369,11 +369,23 @@ $(document).ready(function(){
 	// Summernote
 
 	if($('#summernote').length > 0) {
+
+
 		$('#summernote').summernote({
 		height: 300,                 // set editor height
 		minHeight: null,             // set minimum height of editor
 		maxHeight: null,             // set maximum height of editor
-		focus: false                 // set focus to editable area after initializing summernote
+		focus: false,
+		init: function() {
+			alert("dd");
+			$('#summernote').summernote('code', $('#description').val());
+		},
+		callbacks: {
+			onChange: function(contents, $editable) {
+				// Update textarea content to match Summernote editor's content
+				$('#description').val(contents);
+			}
+		}// set focus to editable area after initializing summernote
 		});
 	}
 	
