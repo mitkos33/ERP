@@ -21,3 +21,9 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+mail:
+  host: ${MAIL_HOST:host}
+  from: example@penchevi.com
+  port: ${MAIL_PORT:445}
+  username: ${MAIL_USERNAME:username}
+  password: ${MAIL_PASSWORD:password}
