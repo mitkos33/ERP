@@ -2,6 +2,7 @@ package com.wg.erp.crm.service;
 
 
 import com.wg.erp.crm.model.dto.ClientAddDTO;
+import com.wg.erp.crm.model.dto.ClientDetailDTO;
 import com.wg.erp.crm.model.entity.Client;
 import com.wg.erp.crm.repository.ClientRepository;
 import com.wg.erp.model.entity.User;
@@ -27,6 +28,13 @@ public class ClientService {
 
     public List<Client> getAllClients() {
         return this.clientRepository.findAll();
+    }
+
+    public List<ClientDetailDTO> getAllClientsDetail() {
+        return this.clientRepository.findAll()
+                .stream()
+                .map(client -> modelMapper.map(client, ClientDetailDTO.class))
+                .toList();
     }
 
     public long getCountClients() {
@@ -61,5 +69,11 @@ public class ClientService {
 
     public void deleteClient(Long id) {
         this.clientRepository.deleteById(id);
+    }
+
+    public ClientDetailDTO findById(Long id) {
+        return this.clientRepository.findById(id)
+                .map(client -> modelMapper.map(client, ClientDetailDTO.class))
+                .orElse(null);
     }
 }

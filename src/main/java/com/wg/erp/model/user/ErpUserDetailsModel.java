@@ -37,10 +37,6 @@ public class ErpUserDetailsModel extends User {
         return email;
     }
 
-    public String setEmail(String email) {
-        return email;
-    }
-
     public String getFullName() {
         StringBuilder fullName = new StringBuilder();
         if (firstName != null) {

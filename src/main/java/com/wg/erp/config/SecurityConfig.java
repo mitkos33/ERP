@@ -22,7 +22,7 @@ public class SecurityConfig {
                                 authorizeRequests
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                         .requestMatchers("/plugins/**").permitAll()
-                                        .requestMatchers("/", "/users/login","users/login-error", "/users/register").permitAll()
+                                        .requestMatchers("/", "/users/login","users/login-error", "/users/register","/api/**").permitAll()
                                         .requestMatchers("/tasks/**","/customers","/customers/**")
                                             .hasAnyRole(
                                                 UserRoleEnum.ADMIN.name(),
