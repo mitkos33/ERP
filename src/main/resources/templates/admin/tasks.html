@@ -204,7 +204,7 @@
                                                                     </a>
                                                                     <div class="dropdown-menu notes-menu dropdown-menu-end">
                                                                         <a th:href="@{/tasks/add/{id}(id=*{id})}" class="dropdown-item" ><span><i data-feather="edit"></i></span>Edit</a>
-                                                                        <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-note-units"><span><i data-feather="trash-2"></i></span>Delete</a>
+                                                                        <a href="#" class="confirm-text p-2 dropdown-item"   th:data-id="*{id}" th:data-url="@{/tasks/{id}(id=*{id})}" ><span><i data-feather="trash-2"></i></span>Delete</a>
                                                                         <a href="#" class="dropdown-item"><span><i data-feather="star"></i></span>Not Important</a>
                                                                         <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#view-note-units"><span><i data-feather="eye"></i></span>View</a>
                                                                     </div>
@@ -346,7 +346,11 @@
             </div>
         </div>
     </div>
-
+    <input type="hidden" id="_csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="hidden" id="delete_title" th:value="#{task_delete_title}" >
+    <input type="hidden" id="delete_message" th:value="#{task_delete_message}" >
+    <input type="hidden" id="delete_yes_button" th:value="#{yes}" >
+    <input type="hidden" id="delete_close_button" th:value="#{cancel}" >
 </div>
 <!-- /Main Wrapper -->
 
@@ -379,6 +383,11 @@
 
 <!-- Select2 JS -->
 <script src="/plugins/select2/js/select2.min.js"></script>
+
+<!-- Sweetalert 2 -->
+<script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="/plugins/sweetalert/sweetalerts.min.js"></script>
+
 
 <!-- Chart JS -->
 <script src="/plugins/apexchart/apexcharts.min.js"></script>

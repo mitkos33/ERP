@@ -82,7 +82,7 @@
                     <div class="card-body">
                         <div class="new-employee-field">
                             <div class="card-title-head">
-                                <h6><span><i data-feather="info" class="feather-edit"></i></span><span th:text="#{customer_info}">Customer Information</span></h6>
+                                <h6><span><i data-feather="info" class="feather-edit"></i></span><span th:text="#{tasks}">Customer Information</span></h6>
                             </div>
 
                             <div class="row">
@@ -136,7 +136,7 @@
                                     <div class="mb-3">
                                         <div class="input-blocks">
                                             <label>Due Date</label>
-                                            <input type="datetime-local" class="form-control" id="datetimepicker"  name="dueDate" th:value="${formattedDueDate}"  th:errorclass="'is-invalid alert-danger'">
+                                            <input type="datetime-local"  required class="form-control" id="datetimepicker"  name="dueDate" th:value="${formattedDueDate}"  th:errorclass="'is-invalid alert-danger'">
                                         </div>
                                     </div>
                                 </div>

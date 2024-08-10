@@ -376,10 +376,7 @@ $(document).ready(function(){
 		minHeight: null,             // set minimum height of editor
 		maxHeight: null,             // set maximum height of editor
 		focus: false,
-		init: function() {
-			alert("dd");
-			$('#summernote').summernote('code', $('#description').val());
-		},
+
 		callbacks: {
 			onChange: function(contents, $editable) {
 				// Update textarea content to match Summernote editor's content
@@ -387,6 +384,8 @@ $(document).ready(function(){
 			}
 		}// set focus to editable area after initializing summernote
 		});
+
+		$('#summernote').summernote('code', $('#description').val());
 	}
 	
 	// Summernote

@@ -92,4 +92,10 @@ public class TaskService {
                 .orElseThrow(() -> new IllegalArgumentException("Task with id " + id + " not found!"));
         return modelMapper.map(task, TaskAddDTO.class);
     }
+
+    public void deleteTask(Long id) {
+        Task task = this.taskRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Task with id " + id + " not found!"));
+        this.taskRepository.delete(task);
+    }
 }

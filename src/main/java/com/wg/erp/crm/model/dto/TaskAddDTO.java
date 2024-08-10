@@ -19,6 +19,7 @@ public class TaskAddDTO {
 
     private PriorityType priority;
 
+    @NotNull
     private LocalDateTime dueDate;
 
     private Order order;
@@ -47,11 +48,11 @@ public class TaskAddDTO {
         this.status = status;
     }
 
-    public LocalDateTime getDueDate() {
+    public @NotNull LocalDateTime getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDateTime dueDate) {
+    public void setDueDate(@NotNull LocalDateTime dueDate) {
         this.dueDate = dueDate;
     }
 
