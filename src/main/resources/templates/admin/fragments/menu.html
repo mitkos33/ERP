@@ -19,9 +19,7 @@
                 <li class="submenu-open" sec:authorize="hasRole('ADMIN') or hasRole('SALES')">
                     <h6 class="submenu-hdr">Sales</h6>
                     <ul>
-                        <li><a href="manage-stocks.html"><i data-feather="package"></i><span>Manage Stock</span></a></li>
-                        <li><a href="stock-adjustment.html"><i data-feather="clipboard"></i><span>Stock Adjustment</span></a></li>
-                        <li><a href="stock-transfer.html"><i data-feather="truck"></i><span>Stock Transfer</span></a></li>
+                        <li><a href="/orders"><i data-feather="package"></i><span th:text="#{orders}">Orders</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu-open" sec:authorize="hasRole('ADMIN')">
