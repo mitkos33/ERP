@@ -28,4 +28,8 @@ public class OrderService {
     public Optional<Order> findOrdersByName(String searchOrder) {
         return  orderRepository.findOrdersByName(searchOrder);
     }
+
+    public Optional<Order> findOrdersById(int orderId) {
+        return  orderRepository.findById((long) orderId);
+    }
 }

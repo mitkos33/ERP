@@ -34,9 +34,9 @@ public class OrderController {
         return "find-orders";
 
     }
-    @GetMapping("/find/{searchOrder}")
+    @GetMapping("/find-word")
     public String findOrdersByWord(Model model, String searchOrder) {
-        Optional<Order> order = orderService.findOrdersByName(searchOrder);
+        Optional<Order> order = orderService.findOrdersById(Integer.parseInt(searchOrder));
         model.addAttribute("order", order);
         return "find-orders";
     }

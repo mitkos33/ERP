@@ -10,12 +10,12 @@
 <div th:replace="~{fragments/menu::menu(activeLink=${'orders'})}"></div>
 <div class="container mt-5">
     <h1 th:text="#{orders}"></h1>
-    <form th:action="@{/orders/find}" th:method="get">
+    <form th:action="@{/orders/find-word}" th:method="get">
         <input type="text" name="searchOrder" width="100%" placeholder="Please enter your order number" >
         <button type="submit">Find</button>
     </form>
     <div th:if="${order}">
-        <h2 th:text="#{exist_order}"></h2>
+        <p class="mt-5" th:text="#{exist_order}"></p>
     </div>
 
 </div>
