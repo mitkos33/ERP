@@ -5,6 +5,7 @@ import com.wg.erp.crm.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -19,6 +20,12 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    public int getOrdersCount() {
+        return orderRepository.findAll().size();
+    }
 
 
+    public Optional<Order> findOrdersByName(String searchOrder) {
+        return  orderRepository.findOrdersByName(searchOrder);
+    }
 }

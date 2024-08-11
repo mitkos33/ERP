@@ -1,6 +1,9 @@
 package com.wg.erp.crm.web;
 
 import com.wg.erp.crm.repository.ClientRepository;
+import com.wg.erp.crm.repository.TaskRepository;
+import com.wg.erp.crm.service.OrderService;
+import com.wg.erp.crm.service.TaskService;
 import com.wg.erp.model.user.ErpUserDetailsModel;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,9 +17,14 @@ public class DashboardController {
 
 
     private final ClientRepository clientRepository;
+    private final TaskService taskService;
+    private final OrderService orderService;
 
-    public DashboardController(ClientRepository clientRepository) {
+
+    public DashboardController(ClientRepository clientRepository, TaskService taskService, OrderService orderService) {
         this.clientRepository = clientRepository;
+        this.taskService = taskService;
+        this.orderService = orderService;
     }
 
     @ModelAttribute("userName")
@@ -32,6 +40,8 @@ public class DashboardController {
     public String getDashboard(Model model) {
 
         model.addAttribute("clientsCount", this.clientRepository.count());
+        model.addAttribute("tasksCount", this.taskService.countAllTasks());
+        model.addAttribute("ordersCount", this.orderService.getOrdersCount());
         return "admin/dashboard";
     }
 }

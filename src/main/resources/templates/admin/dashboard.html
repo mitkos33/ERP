@@ -67,8 +67,8 @@
 					<div class="col-xl-3 col-sm-6 col-12 d-flex">
 						<div class="dash-count das1">
 							<div class="dash-counts">
-								<h4>110</h4>
-								<h5>Suppliers</h5>
+								<h4 th:text="${tasksCount}">0</h4>
+								<h5 th:text="#{tasks}">Tasks</h5>
 							</div>
 							<div class="dash-imgs">
 								<i data-feather="user-check"></i>
@@ -78,8 +78,8 @@
 					<div class="col-xl-3 col-sm-6 col-12 d-flex">
 						<div class="dash-count das2">
 							<div class="dash-counts">
-								<h4>150</h4>
-								<h5>Purchase Invoice</h5>
+								<h4 th:text="${ordersCount}">0</h4>
+								<h5 th:text="#{orders}">Orders</h5>
 							</div>
 							<div class="dash-imgs">
 								<img src="/images/icons/file-text-icon-01.svg" class="img-fluid" alt="icon">
@@ -90,7 +90,7 @@
 						<div class="dash-count das3">
 							<div class="dash-counts">
 								<h4>170</h4>
-								<h5>Sales Invoice</h5>
+								<h5>Documents</h5>
 							</div>
 							<div class="dash-imgs">
 								<i data-feather="file"></i>

@@ -98,4 +98,8 @@ public class TaskService {
                 .orElseThrow(() -> new IllegalArgumentException("Task with id " + id + " not found!"));
         this.taskRepository.delete(task);
     }
+
+    public int countAllTasks() {
+        return (int) taskRepository.count();
+    }
 }
