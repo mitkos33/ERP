@@ -1,13 +1,14 @@
 package com.wg.erp.crm.model.entity;
 
 import com.wg.erp.model.entity.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
+
+    private String orderNumber;
 
     private String name;
 
@@ -16,6 +17,8 @@ public class Order extends BaseEntity {
 
     @ManyToOne
     private Document document;
+
+
 
     public String getName() {
         return name;
@@ -39,6 +42,14 @@ public class Order extends BaseEntity {
 
     public void setDocument(Document document) {
         this.document = document;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
 

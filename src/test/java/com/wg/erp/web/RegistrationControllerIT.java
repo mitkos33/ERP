@@ -34,7 +34,7 @@ public class RegistrationControllerIT {
     void testRegistration() throws Exception {
 
         mockMvc.perform(post("/users/register")
-                        .param("email", "ivan.ivanov@example.com")
+                        .param("email", "ivan.ivanov22@example.com")
                         .param("firstName", "Иван")
                         .param("lastName", "Иванов")
                         .param("password", "top1234")
@@ -42,7 +42,7 @@ public class RegistrationControllerIT {
                 ).andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/users/login"));
 
-        Optional<User> userEntityOpt = userRepository.findByEmail("ivan.ivanov@example.com");
+        Optional<User> userEntityOpt = userRepository.findByEmail("ivan.ivanov22@example.com");
 
         Assertions.assertTrue(userEntityOpt.isPresent());
 

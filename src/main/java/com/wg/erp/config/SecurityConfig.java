@@ -22,6 +22,7 @@ public class SecurityConfig {
                                 authorizeRequests
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                         .requestMatchers("/plugins/**").permitAll()
+                                        .requestMatchers("/error/**").permitAll()
                                         .requestMatchers("/", "/users/login","users/login-error", "/users/register","/api/**","/about-us","/orders/find","/orders/find-word").permitAll()
                                         .requestMatchers("/tasks/**","/customers","/customers/**")
                                             .hasAnyRole(
@@ -29,6 +30,10 @@ public class SecurityConfig {
                                                 UserRoleEnum.SALES.name())
                                         .anyRequest()
                                         .authenticated()
+                )
+                .exceptionHandling(
+                        exceptionHandling ->
+                                exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 )
                 .formLogin(formLogin ->
                         formLogin

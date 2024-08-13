@@ -25,10 +25,10 @@ public class CronScheduler {
     }
 
 
-    @Scheduled(cron = "*/10 * * * * *")
-    public void testCronOnTenSeconds() {
-        LOGGER.info("On cron - ten seconds");
-    }
+//    @Scheduled(cron = "*/10 * * * * *")
+//    public void testCronOnTenSeconds() {
+//        LOGGER.info("On cron - ten seconds");
+//    }
 
     @Scheduled(cron = "* 0 16 * * 1-5")
     public void sendDailyReminderMail() {

@@ -112,6 +112,7 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </th>
+                                <th>ID</th>
                                 <th th:text="#{order_number}">Order number</th>
                                 <th th:text="#{order_name}">Order name</th>
                                 <th class="no-sort">Action</th>
@@ -127,8 +128,9 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </td>
-                                <td th:text="*{id}"></td>
 
+                                <td th:text="*{id}"></td>
+                                <td th:text="*{orderNumber}"></td>
                                 <td th:text="*{name}"></td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">

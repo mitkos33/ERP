@@ -29,7 +29,11 @@ public class OrderService {
         return  orderRepository.findOrdersByName(searchOrder);
     }
 
-    public Optional<Order> findOrdersById(int orderId) {
-        return  orderRepository.findById((long) orderId);
+    public Optional<Order> findOrdersByOrderNumber(String orderId) {
+        Optional<Order> order = orderRepository.findOrdersByOrderNumber(orderId);
+        if (order.isPresent()) {
+            return order;
+        }
+        throw new IllegalArgumentException("Order not found");
     }
 }
