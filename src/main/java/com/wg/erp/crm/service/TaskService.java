@@ -1,15 +1,13 @@
 package com.wg.erp.crm.service;
 
-import com.wg.erp.crm.model.dto.ClientAddDTO;
+
 import com.wg.erp.crm.model.dto.TaskAddDTO;
-import com.wg.erp.crm.model.entity.Client;
 import com.wg.erp.crm.model.entity.Task;
 import com.wg.erp.crm.model.enums.StatusType;
 import com.wg.erp.crm.repository.TaskRepository;
 import com.wg.erp.model.entity.User;
 import com.wg.erp.repository.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -99,9 +97,6 @@ public class TaskService {
         this.taskRepository.delete(task);
     }
 
-    public int countAllTasks() {
-        return (int) taskRepository.count();
-    }
 
     public int countAllOpenTasks() {
         Set<StatusType> status = Set.of(StatusType.OPEN, StatusType.IN_PROGRESS);

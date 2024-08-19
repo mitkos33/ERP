@@ -52,9 +52,6 @@ public class Order extends BaseEntity {
         return orderNumber;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
 
     public OrderStatus getStatus() {
         return status;
