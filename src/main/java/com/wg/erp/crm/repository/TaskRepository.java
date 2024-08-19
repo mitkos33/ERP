@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findAllByStatusInOrderByDueDateDesc(Collection<StatusType> status);
+    int countAllByStatusIn(Set<StatusType> status);
 }

@@ -14,12 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@RequestMapping("/customers")
-public class CustomersController {
+@RequestMapping("/admin/customers")
+public class AdminCustomersController {
 
     private final ClientService clientService;
 
-    public CustomersController(ClientService clientService) {
+    public AdminCustomersController(ClientService clientService) {
         this.clientService = clientService;
     }
 
@@ -55,7 +55,7 @@ public class CustomersController {
         if(result.hasErrors()){
             rAtt.addFlashAttribute("addClientDTO", clientAddDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addClientDTO", result);
-            return "redirect:/customers/add";
+            return "redirect:/admin/customers/add";
         }
 
         if (!id.isEmpty() && !id.isBlank()) {
@@ -65,7 +65,7 @@ public class CustomersController {
             this.clientService.addClient(clientAddDTO, userDetails.getEmail());
         }
 
-        return "redirect:/customers";
+        return "redirect:/admin/customers";
     }
 
     @GetMapping("/add/{id}")
@@ -78,6 +78,6 @@ public class CustomersController {
     @DeleteMapping("/{id}")
     public String deleteCustomer(@PathVariable Long id) {
         this.clientService.deleteClient(id);
-        return "redirect:/customers";
+        return "redirect:/admin/customers";
     }
 }

@@ -21,15 +21,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
-@RequestMapping("/tasks")
-public class TaskController {
+@RequestMapping("/admin/tasks")
+public class AdminTaskController {
 
 
     private final TaskService taskService;
     private final OrderService orderService;
 
 
-    TaskController(TaskService taskService, OrderService orderService) {
+    AdminTaskController(TaskService taskService, OrderService orderService) {
 
         this.taskService = taskService;
         this.orderService = orderService;
@@ -66,7 +66,7 @@ public class TaskController {
         model.addAttribute("todayTasksCount", todayTasks.size());
         model.addAttribute("otherTasks", otherTasks);
         model.addAttribute("allDoneTasks", allDoneTasks);
-        model.addAttribute("allOpenTaskCount", otherTasks.size() + todayTasks.size());
+        model.addAttribute("allOpenTaskCount", taskService.countAllOpenTasks());
         model.addAttribute("priorityTypes", PriorityType.values());
 
         return "admin/tasks";
@@ -94,7 +94,7 @@ public class TaskController {
         if(result.hasErrors()){
             rAtt.addFlashAttribute("taskAddDTO", taskAddDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.taskAddDTO", result);
-            return "redirect:/tasks/add";
+            return "redirect:/admin/tasks/add";
         }
 
         if (!taskId.isEmpty() && !taskId.isBlank()) {
@@ -104,7 +104,7 @@ public class TaskController {
             this.taskService.addTask(taskAddDTO, userDetails.getEmail());
         }
 
-        return "redirect:/tasks";
+        return "redirect:/admin/tasks";
 
     }
 

@@ -11,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Controller
+@RequestMapping("/admin")
 public class DashboardController {
 
 
@@ -40,7 +43,7 @@ public class DashboardController {
     public String getDashboard(Model model) {
 
         model.addAttribute("clientsCount", this.clientRepository.count());
-        model.addAttribute("tasksCount", this.taskService.countAllTasks());
+        model.addAttribute("tasksCount", this.taskService.countAllOpenTasks());
         model.addAttribute("ordersCount", this.orderService.getOrdersCount());
         return "admin/dashboard";
     }

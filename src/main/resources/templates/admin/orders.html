@@ -57,7 +57,7 @@
     <!-- /Header -->
 
     <!-- Sidebar -->
-    <div th:replace="~{admin/fragments/menu::menu(activeLink=${'home'})}"></div>
+    <div th:replace="~{admin/fragments/menu::menu(activeLink=${'orders'})}"></div>
     <!-- /Sidebar -->
 
     <div class="page-wrapper">
@@ -87,7 +87,7 @@
                     </li>
                 </ul>
                 <div class="page-btn">
-                    <a href="/orders/add" class="btn btn-added"><i data-feather="plus-circle" class="me-2"></i><span th:text="#{customer_add}">Add new order</span></a>
+                    <a href="/admin/orders/add" class="btn btn-added"><i data-feather="plus-circle" class="me-2"></i><span th:text="#{oder_add}">Add new order</span></a>
                 </div>
             </div>
 
@@ -115,6 +115,7 @@
                                 <th>ID</th>
                                 <th th:text="#{order_number}">Order number</th>
                                 <th th:text="#{order_name}">Order name</th>
+                                <th th:text="#{order_status}">Order status</th>
                                 <th class="no-sort">Action</th>
                             </tr>
                             </thead>
@@ -132,9 +133,10 @@
                                 <td th:text="*{id}"></td>
                                 <td th:text="*{orderNumber}"></td>
                                 <td th:text="*{name}"></td>
+                                <td th:text="*{status}"></td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2" th:href="@{/orders/add/{id}(id=*{id})}" >
+                                        <a class="me-2 p-2" th:href="@{/admin/orders/add/{id}(id=*{id})}" >
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
                                         <a class="confirm-text p-2"   th:data-id="*{id}" th:data-url="@{/orders/{id}(id=*{id})}" href="javascript:void(0);">
@@ -204,10 +206,10 @@
                                                 <td th:text="*{name}"></td>
                                                 <td class="action-table-data">
                                                     <div class="edit-delete-action">
-                                                        <a class="me-2 p-2" th:href="@{/orders/add/{id}(id=*{id})}" >
+                                                        <a class="me-2 p-2" th:href="@{/admin/orders/add/{id}(id=*{id})}" >
                                                             <i data-feather="edit" class="feather-edit"></i>
                                                         </a>
-                                                        <a class="confirm-text p-2"   th:data-id="*{id}" th:data-url="@{/orders/{id}(id=*{id})}" href="javascript:void(0);">
+                                                        <a class="confirm-text p-2"   th:data-id="*{id}" th:data-url="@{/admin/orders/{id}(id=*{id})}" href="javascript:void(0);">
                                                             <i data-feather="trash-2" class="feather-trash-2"></i>
                                                         </a>
                                                     </div>

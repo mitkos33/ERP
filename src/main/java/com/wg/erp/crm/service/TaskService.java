@@ -102,4 +102,9 @@ public class TaskService {
     public int countAllTasks() {
         return (int) taskRepository.count();
     }
+
+    public int countAllOpenTasks() {
+        Set<StatusType> status = Set.of(StatusType.OPEN, StatusType.IN_PROGRESS);
+        return taskRepository.countAllByStatusIn(status);
+    }
 }

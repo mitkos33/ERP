@@ -40,7 +40,7 @@ public class SecurityConfig {
                                 .loginPage("/users/login")
                                 .usernameParameter("email")
                                 .passwordParameter("password")
-                                .defaultSuccessUrl("/dashboard", true)
+                                .defaultSuccessUrl("/admin/dashboard", true)
                                 .failureUrl("/users/login-error")
                 )
                 .rememberMe(

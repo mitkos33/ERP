@@ -87,7 +87,7 @@
                     </li>
                 </ul>
                 <div class="page-btn">
-                    <a href="/customers/add" class="btn btn-added"><i data-feather="plus-circle" class="me-2"></i><span th:text="#{customer_add}">Add New Product</span></a>
+                    <a href="/admin/customers/add" class="btn btn-added"><i data-feather="plus-circle" class="me-2"></i><span th:text="#{customer_add}">Add New Product</span></a>
                 </div>
             </div>
 
@@ -152,11 +152,11 @@
                                 </td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2" th:href="@{/customers/add/{id}(id=*{id})}" >
+                                        <a class="me-2 p-2" th:href="@{/admin/customers/add/{id}(id=*{id})}" >
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
 <!--                                        <form th:method="delete"-->
-<!--                                              th:action="@{/customers/{id}(id=*{id})}">-->
+<!--                                              th:action="@{/admin/customers/{id}(id=*{id})}">-->
 <!--                                            <input  class="btn btn-link confirm-text p-2" type="submit" value="Delete"/>-->
 <!--                                        </form>-->
                                         <a class="confirm-text p-2"   th:data-id="*{id}" th:data-url="@{/customers/{id}(id=*{id})}" href="javascript:void(0);">

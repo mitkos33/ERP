@@ -1,27 +1,22 @@
-package com.wg.erp.crm.model.entity;
+package com.wg.erp.crm.model.dto;
 
+import com.wg.erp.crm.model.entity.Document;
+import com.wg.erp.crm.model.entity.OrderType;
 import com.wg.erp.crm.model.enums.OrderStatus;
-import com.wg.erp.model.entity.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
+public class OrderAddDTO {
 
-@Entity
-@Table(name = "orders")
-public class Order extends BaseEntity {
-
-    private String orderNumber;
-
+    @NotEmpty
+    @Size(min = 3, max = 50)
     private String name;
-
-    @ManyToOne
     private OrderType orderType;
-
-    @ManyToOne
     private Document document;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     private OrderStatus status;
-
 
 
     public String getName() {
@@ -36,8 +31,8 @@ public class Order extends BaseEntity {
         return orderType;
     }
 
-    public void setOrderType(OrderType orderType) {
-        this.orderType = orderType;
+    public void setOrderType(OrderType orderTypeId) {
+        this.orderType = orderTypeId;
     }
 
     public Document getDocument() {
@@ -48,14 +43,6 @@ public class Order extends BaseEntity {
         this.document = document;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
     public OrderStatus getStatus() {
         return status;
     }
@@ -63,6 +50,4 @@ public class Order extends BaseEntity {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
-
-
 }

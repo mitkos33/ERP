@@ -3,7 +3,6 @@ package com.wg.erp.scheduling;
 import com.wg.erp.crm.model.entity.Task;
 import com.wg.erp.crm.service.TaskService;
 import com.wg.erp.service.MailService;
-import com.wg.erp.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -25,10 +24,10 @@ public class CronScheduler {
     }
 
 
-//    @Scheduled(cron = "*/10 * * * * *")
-//    public void testCronOnTenSeconds() {
-//        LOGGER.info("On cron - ten seconds");
-//    }
+    @Scheduled(cron = "*/60 * * * * *")
+    public void testCronOnTenSeconds() {
+        LOGGER.info("On cron - one minute!");
+    }
 
     @Scheduled(cron = "* 0 16 * * 1-5")
     public void sendDailyReminderMail() {

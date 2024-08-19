@@ -6,20 +6,20 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr" th:text="#{main}">Main</h6>
                     <ul>
-                        <li><a href="/dashboard"><i data-feather="grid"></i><span>Dashboard</span></a></li>
+                        <li><a href="/admin/dashboard"><i data-feather="grid"></i><span>Dashboard</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu-open" sec:authorize="hasRole('ADMIN') or hasRole('SALES')">
                     <h6 class="submenu-hdr">CRM</h6>
                     <ul>
-                        <li><a href="/tasks"><i data-feather="box"></i><span th:text="#{tasks}">Tasks</span></a></li>
-                        <li><a href="/customers"><i data-feather="user"></i><span  th:text="#{customers}">Customers</span></a></li>
+                        <li><a href="/admin/tasks"><i data-feather="box"></i><span th:text="#{tasks}">Tasks</span></a></li>
+                        <li><a href="/admin/customers"><i data-feather="user"></i><span  th:text="#{customers}">Customers</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu-open" sec:authorize="hasRole('ADMIN') or hasRole('SALES')">
                     <h6 class="submenu-hdr">Sales</h6>
                     <ul>
-                        <li><a href="/orders"><i data-feather="package"></i><span th:text="#{orders}">Orders</span></a></li>
+                        <li><a href="/admin/orders"><i data-feather="package"></i><span th:text="#{orders}">Orders</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu-open" sec:authorize="hasRole('ADMIN')">
