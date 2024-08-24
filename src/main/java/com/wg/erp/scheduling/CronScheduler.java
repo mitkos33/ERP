@@ -31,7 +31,7 @@ public class CronScheduler {
 
     @Scheduled(cron = "* 0 16 * * 1-5")
     public void sendDailyReminderMail() {
-        Map<String, List<Task>> allOpenTasks = taskService.getAllActiveTasks();
+        Map<String, List<Task>> allOpenTasks = taskService.getAllActiveTasks(null);
         List<Task> todayTasks = new ArrayList<>();
         if (allOpenTasks.containsKey("Today")) {
             todayTasks = allOpenTasks.get("Today");

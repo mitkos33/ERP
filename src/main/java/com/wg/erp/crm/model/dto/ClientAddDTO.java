@@ -1,6 +1,7 @@
 package com.wg.erp.crm.model.dto;
 
 
+import com.wg.erp.model.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -39,6 +40,8 @@ public class ClientAddDTO{
 
     @Size(max = 100, message = "{add.client.description.length}")
     private String description;
+
+    private User owner;
 
     public static ClientAddDTO empty() {
         return new ClientAddDTO();
@@ -146,5 +149,13 @@ public class ClientAddDTO{
 
     public void setIsVatRegistered(boolean isVatRegistered) {
         this.isVatRegistered = isVatRegistered;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

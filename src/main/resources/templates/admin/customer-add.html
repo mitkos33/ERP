@@ -66,7 +66,7 @@
                 <ul class="table-top-head">
                     <li>
                         <div class="page-btn">
-                            <a href="/customers" class="btn btn-secondary"><i data-feather="arrow-left" class="me-2"></i><span th:text="#{customers_back}"></span></a>
+                            <a href="/admin/customers" class="btn btn-secondary"><i data-feather="arrow-left" class="me-2"></i><span th:text="#{customers_back}"></span></a>
                         </div>
                     </li>
                     <li>
@@ -75,7 +75,7 @@
                 </ul>
             </div>
             <!-- /product list -->
-            <form th:method="post" th:object="${addClientDTO}" th:action="@{/customers/add}">
+            <form th:method="post" th:object="${addClientDTO}" th:action="@{/admin/customers/add}">
                 <div class="card">
                     <div class="card-body">
                         <div class="new-employee-field">
@@ -118,6 +118,18 @@
                                         <input type="hidden" id="country" th:field="*{country}">
                                         <div class="invalid-feedback ">
                                             <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone is required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="mb-3">
+                                        <div class="input-blocks">
+                                            <label th:text="#{customer_owner}">Owner</label>
+                                            <select class="select" name="owner"  th:field="*{owner}"  th:errorclass="'is-invalid alert-danger'">
+                                                <option th:each="userOption : ${allUsers}"
+                                                        th:value="${userOption.getId()}"
+                                                        th:text="${userOption.getFullName()}" th:selected="${owner == userOption}">Status</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -168,6 +180,7 @@
                                             <input type="text" class="form-control" th:field="*{vatNumber}">
                                         </div>
                                     </div>
+
                                     <div class="col-lg-12">
                                         <div class="input-blocks summer-description-box transfer mb-3">
                                             <label th:text="#{customer_description}">Description</label>
@@ -187,7 +200,6 @@
 
                 <div class="text-end mb-3">
                     <input type="hidden" name="client_id"  th:value="${client_id}"/>
-                    <button type="button" class="btn btn-cancel me-2" th:text="#{cancel}">Cancel</button>
                     <button type="submit" class="btn btn-submit" th:text="#{save}">Save Customer</button>
                 </div>
             </form>

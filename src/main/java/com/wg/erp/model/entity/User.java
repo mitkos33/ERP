@@ -1,12 +1,7 @@
 package com.wg.erp.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +26,9 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<UserRole> roles = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UserGroup> users_groups;
 
     public String getEmail() {
         return email;
@@ -74,6 +72,19 @@ public class User extends BaseEntity {
 
     public User setRoles(List<UserRole> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public List<UserGroup> getUsers_groups() {
+        return users_groups;
+    }
+
+    public User setUsers_groups(List<UserGroup> users_groups) {
+        this.users_groups = users_groups;
         return this;
     }
 

@@ -7,6 +7,7 @@ import com.wg.erp.crm.model.enums.StatusType;
 import com.wg.erp.crm.service.OrderService;
 import com.wg.erp.crm.service.TaskService;
 import com.wg.erp.model.user.ErpUserDetailsModel;
+import com.wg.erp.service.UserGroupService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,12 +28,15 @@ public class AdminTaskController {
 
     private final TaskService taskService;
     private final OrderService orderService;
+    private final UserGroupService userGroupService;
 
 
-    AdminTaskController(TaskService taskService, OrderService orderService) {
+    AdminTaskController(TaskService taskService, OrderService orderService, UserGroupService
+                        userGroupService) {
 
         this.taskService = taskService;
         this.orderService = orderService;
+        this.userGroupService = userGroupService;
     }
 
     @ModelAttribute("userName")
@@ -45,10 +49,10 @@ public class AdminTaskController {
     }
 
     @GetMapping("")
-    public String getAllTasks(Model model) {
+    public String getAllTasks(Model model, @AuthenticationPrincipal ErpUserDetailsModel userDetails) {
 
-        Map<String, List<Task>> allOpenTasks = taskService.getAllActiveTasks();
-        List<Task> allDoneTasks = taskService.getAllDoneTasks();
+        Map<String, List<Task>> allOpenTasks = taskService.getAllActiveTasks(userDetails);
+        List<Task> allDoneTasks = taskService.getAllDoneTasks(userDetails);
 
         Map<String, List<Task>> otherTasks = new LinkedHashMap<>();
 
@@ -66,7 +70,7 @@ public class AdminTaskController {
         model.addAttribute("todayTasksCount", todayTasks.size());
         model.addAttribute("otherTasks", otherTasks);
         model.addAttribute("allDoneTasks", allDoneTasks);
-        model.addAttribute("allOpenTaskCount", taskService.countAllOpenTasks());
+        model.addAttribute("allOpenTaskCount", taskService.countAllOpenTasks(userDetails));
         model.addAttribute("priorityTypes", PriorityType.values());
 
         return "admin/tasks";
@@ -78,7 +82,7 @@ public class AdminTaskController {
         if (!model.containsAttribute("taskAddDTO")) {
             model.addAttribute("taskAddDTO", new TaskAddDTO());
         }
-
+        model.addAttribute("usersGroups", userGroupService.getAllUserGroups());
         model.addAttribute("priorityTypes", PriorityType.values());
         model.addAttribute("statusTypes", StatusType.values());
         model.addAttribute("orders", orderService.getAllOrders());
@@ -115,6 +119,7 @@ public class AdminTaskController {
         model.addAttribute("priorityTypes", PriorityType.values());
         model.addAttribute("statusTypes", StatusType.values());
         model.addAttribute("orders", orderService.getAllOrders());
+        model.addAttribute("usersGroups", userGroupService.getAllUserGroups());
         model.addAttribute("task_id", id);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         String formattedDate = task.getDueDate().format(formatter);

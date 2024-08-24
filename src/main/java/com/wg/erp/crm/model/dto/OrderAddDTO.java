@@ -3,9 +3,12 @@ package com.wg.erp.crm.model.dto;
 import com.wg.erp.crm.model.entity.Document;
 import com.wg.erp.crm.model.entity.OrderType;
 import com.wg.erp.crm.model.enums.OrderStatus;
+import com.wg.erp.model.entity.UserGroup;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 public class OrderAddDTO {
 
@@ -14,6 +17,8 @@ public class OrderAddDTO {
     private String name;
     private OrderType orderType;
     private Document document;
+
+    private List<UserGroup> groups;
 
     @Enumerated
     private OrderStatus status;
@@ -50,4 +55,14 @@ public class OrderAddDTO {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
+
+    public List<UserGroup> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<UserGroup> groups) {
+        this.groups = groups;
+    }
+
+
 }

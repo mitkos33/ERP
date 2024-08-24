@@ -2,7 +2,9 @@ package com.wg.erp.crm.web;
 
 import com.wg.erp.crm.model.dto.ClientAddDTO;
 import com.wg.erp.crm.service.ClientService;
+import com.wg.erp.model.entity.User;
 import com.wg.erp.model.user.ErpUserDetailsModel;
+import com.wg.erp.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,15 +14,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/admin/customers")
 public class AdminCustomersController {
 
     private final ClientService clientService;
+    private final UserService userService;
 
-    public AdminCustomersController(ClientService clientService) {
+    public AdminCustomersController(ClientService clientService, UserService userService) {
         this.clientService = clientService;
+        this.userService = userService;
     }
 
 
@@ -31,6 +37,11 @@ public class AdminCustomersController {
         } else {
             return "Anonymous";
         }
+    }
+
+    @ModelAttribute("allUsers")
+    public List<User> getAllUsers() {
+        return this.userService.getAllUsers();
     }
 
     @GetMapping("")

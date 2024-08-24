@@ -5,10 +5,12 @@ import com.wg.erp.model.entity.BaseEntity;
 import com.wg.erp.crm.model.enums.PriorityType;
 import com.wg.erp.crm.model.enums.StatusType;
 import com.wg.erp.model.entity.User;
+import com.wg.erp.model.entity.UserGroup;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tasks")
@@ -36,6 +38,9 @@ public class Task extends BaseEntity {
     @ManyToOne
     private User createdBy;
 
+
+    @ManyToMany
+    private List<UserGroup> assignedToGroups;
 
 
     public String getTitle() {
@@ -92,5 +97,13 @@ public class Task extends BaseEntity {
 
     public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public List<UserGroup> getAssignedToGroups() {
+        return assignedToGroups;
+    }
+
+    public void setAssignedToGroups(List<UserGroup> assignedToGroups) {
+        this.assignedToGroups = assignedToGroups;
     }
 }

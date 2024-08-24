@@ -50,4 +50,8 @@ public class UserService {
 
         return mappedEntity;
     }
+
+    public List<User> getAllUsers() {
+        return this.userRepository.findAll();
+    }
 }

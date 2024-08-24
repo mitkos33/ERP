@@ -28,6 +28,12 @@ public class Client extends BaseEntity {
     private String email;
     private String description;
 
+    @ManyToOne
+    private User owner;
+
+    @ManyToOne
+    private User createdBy;
+
     public String getCountry() {
         return country;
     }
@@ -104,10 +110,14 @@ public class Client extends BaseEntity {
         this.vatNumber = vatNumber;
     }
 
-    @ManyToOne
-    private User createdBy;
 
+    public User getOwner() {
+        return owner;
+    }
 
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
     public String getPhone() {
         return phone;

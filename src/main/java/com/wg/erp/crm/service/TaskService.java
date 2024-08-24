@@ -6,8 +6,13 @@ import com.wg.erp.crm.model.entity.Task;
 import com.wg.erp.crm.model.enums.StatusType;
 import com.wg.erp.crm.repository.TaskRepository;
 import com.wg.erp.model.entity.User;
+import com.wg.erp.model.entity.UserGroup;
+import com.wg.erp.model.user.ErpUserDetailsModel;
 import com.wg.erp.repository.UserRepository;
+import com.wg.erp.service.ErpUserDetailService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,14 +30,25 @@ public class TaskService {
         this.taskRepository = taskRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+
     }
 
-    public Map<String,List<Task>> getAllActiveTasks() {
+
+
+    public Map<String,List<Task>> getAllActiveTasks(ErpUserDetailsModel userDetails) {
 
         LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
         LocalDateTime tomorrow = today.plusDays(1);
         Set<StatusType> status = Set.of(StatusType.OPEN, StatusType.IN_PROGRESS);
-        List<Task> allTasks = taskRepository.findAllByStatusInOrderByDueDateDesc(status);
+        List<Task> allTasks;
+        if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            allTasks = taskRepository.findAllByStatusInOrderByDueDateDesc(status);
+        }
+        else {
+           List<UserGroup> userGroups = userDetails.getUserGroups();
+           allTasks = taskRepository.findAllByAssignedToGroupsAndStatusInOrderByDueDateDesc(userGroups,status);
+        }
+
 
         Map<String, List<Task>> allOpenTasks = new HashMap<>();
         allTasks.stream()
@@ -45,9 +61,15 @@ public class TaskService {
         return allOpenTasks;
     }
 
-    public List<Task> getAllDoneTasks() {
+    public List<Task> getAllDoneTasks(ErpUserDetailsModel userDetails) {
         Set<StatusType> status = Set.of(StatusType.DONE);
-        return taskRepository.findAllByStatusInOrderByDueDateDesc(status);
+        if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return taskRepository.findAllByStatusInOrderByDueDateDesc(status);
+        }
+        else {
+            List<UserGroup> userGroups = userDetails.getUserGroups();
+            return taskRepository.findAllByAssignedToGroupsAndStatusInOrderByDueDateDesc(userGroups,status);
+        }
     }
 
     public Map<String, List<Task>> filterOtherTasksByDate(List<Task> tasks) {
@@ -81,6 +103,7 @@ public class TaskService {
     public void updateTask(TaskAddDTO taskAddDTO, long taskId) {
         Task task = this.taskRepository.findById(taskId)
                 .orElseThrow(() -> new IllegalArgumentException("Task with id " + taskId + " not found!"));
+        task.setAssignedToGroups(new ArrayList<>());
         modelMapper.map(taskAddDTO, task);
         this.taskRepository.save(task);
     }
@@ -98,8 +121,14 @@ public class TaskService {
     }
 
 
-    public int countAllOpenTasks() {
+    public int countAllOpenTasks(ErpUserDetailsModel userDetails) {
         Set<StatusType> status = Set.of(StatusType.OPEN, StatusType.IN_PROGRESS);
-        return taskRepository.countAllByStatusIn(status);
+        if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return taskRepository.countAllByStatusIn(status);
+        }
+        else {
+            List<UserGroup> userGroups = userDetails.getUserGroups();
+            return taskRepository.countAllByAssignedToGroupsAndStatusIn(userGroups,status);
+        }
     }
 }

@@ -3,10 +3,12 @@ package com.wg.erp.crm.model.dto;
 import com.wg.erp.crm.model.entity.Order;
 import com.wg.erp.crm.model.enums.PriorityType;
 import com.wg.erp.crm.model.enums.StatusType;
+import com.wg.erp.model.entity.UserGroup;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class TaskAddDTO {
 
@@ -23,6 +25,8 @@ public class TaskAddDTO {
     private LocalDateTime dueDate;
 
     private Order order;
+
+    private List<UserGroup> assignedToGroups;
 
     public @NotEmpty String getTitle() {
         return title;
@@ -70,5 +74,13 @@ public class TaskAddDTO {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public List<UserGroup> getAssignedToGroups() {
+        return assignedToGroups;
+    }
+
+    public void setAssignedToGroups(List<UserGroup> assignedToGroups) {
+        this.assignedToGroups = assignedToGroups;
     }
 }

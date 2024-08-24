@@ -77,7 +77,7 @@
                 </ul>
             </div>
             <!-- /product list -->
-            <form th:method="post" th:object="${orderAddDTO}" th:action="@{/admin/orders/add}">
+            <form th:method="post" th:object="${orderAddDTO}" th:action="@{/admin/orders/add}" enctype="multipart/form-data">
                 <div class="card">
                     <div class="card-body">
                         <div class="new-employee-field">
@@ -110,6 +110,21 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="mb-3">
                                         <div class="input-blocks">
+                                            <div class="col-md-12">
+                                                <label th:text="#{user_groups}">Users Groups</label>
+                                                <select class="form-control tagging" multiple="multiple" name="groups"  th:field="*{groups}">
+                                                    <option th:each="userGroupOption : ${usersGroups}"
+                                                            th:value="${userGroupOption.id}"
+                                                            th:text="${userGroupOption.name}" >UserGroups</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                               <div class="col-lg-4 col-md-6">
+                                    <div class="mb-3">
+                                        <div class="input-blocks">
                                             <label th:text="#{document}">Document</label>
                                             <select class="select" name="document"  th:field="*{document}"  th:errorclass="'is-invalid alert-danger'">
                                                 <option th:each="documentOption : ${documents}"
@@ -117,6 +132,12 @@
                                                         th:text="${documentOption.name}" th:selected="${document == documentOption}">Document</option>
                                             </select>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="mb-3">
+                                        <label th:text="#{file}">File</label>
+                                        <input type="file" class="form-control" name="file"   >
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
@@ -183,6 +204,10 @@
 <script src="/plugins/summernote/summernote-bs4.min.js"></script>
 
 <!-- Custom JS --><script src="/js/theme-script.js"></script>
+
+<script src="/plugins/select2/js/select2.min.js"></script>
+<script src="/plugins/select2/js/custom-select.js"></script>
+
 <script src="/js/script.js"></script>
 
 </body>

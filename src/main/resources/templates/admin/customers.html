@@ -118,6 +118,7 @@
                                     <th>Email</th>
                                     <th th:text="#{customer_company_name}">Company name</th>
                                     <th th:text="#{customer_company_mol}">Company mol</th>
+                                    <th th:text="#{customer_owner}">Owner </th>
                                     <th th:text="#{customer_crated_by}">Created by</th>
                                     <th class="no-sort">Action</th>
                                 </tr>
@@ -142,12 +143,20 @@
                                 <td th:text="*{email}"></td>
                                 <td th:text="*{companyName}"></td>
                                 <td th:text="*{mol}"></td>
+                                <td th:if="*{owner}">
+                                    <div class="userimgname">
+                                        <a href="javascript:void(0);" th:text="*{owner.fullName}">None</a>
+                                    </div>
+                                </td>
+                                <td th:unless="*{owner}">
+                                    -----
+                                </td>
                                 <td>
                                     <div class="userimgname">
 <!--                                        <a href="javascript:void(0);" class="product-img">-->
 <!--                                            <img src="/images/users/user-30.jpg" alt="product">-->
 <!--                                        </a>-->
-                                        <a href="javascript:void(0);" th:text="*{createdBy.firstName + ' ' + createdBy.lastName}">None</a>
+                                        <a href="javascript:void(0);" th:text="*{createdBy.fullName}">None</a>
                                     </div>
                                 </td>
                                 <td class="action-table-data">

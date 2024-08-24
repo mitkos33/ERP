@@ -6,6 +6,7 @@ import com.wg.erp.crm.repository.OrderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
 
-    public OrderService(OrderRepository orderRepository, ModelMapper modelMapper) {
+    public OrderService(OrderRepository orderRepository,   ModelMapper modelMapper) {
         this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
     }
@@ -42,8 +43,10 @@ public class OrderService {
         throw new IllegalArgumentException("Order not found");
     }
 
-    public void addOrder(OrderAddDTO orderAddDTO) {
-        orderRepository.save(mapOrderAddDTOToOrder(orderAddDTO));
+    public void addOrder(OrderAddDTO orderAddDTO, String documentFileName) {
+        Order order = modelMapper.map(orderAddDTO, Order.class);
+        order.setDocumentFileName(documentFileName);
+        orderRepository.save(order);
     }
 
     public Order mapOrderAddDTOToOrder(OrderAddDTO orderAddDTO) {
@@ -63,10 +66,15 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
-    public void updateOrder(OrderAddDTO orderAddDTO, String orderId) {
+    public void updateOrder(OrderAddDTO orderAddDTO, String documentFileName, String orderId) {
         Order order = orderRepository.findById(Long.parseLong(orderId))
                 .orElseThrow(() -> new IllegalArgumentException("Order with id " + orderId + " not found!"));
+
+        order.setGroups(new ArrayList<>());
+        orderRepository.save(order);
+
         modelMapper.map(orderAddDTO, order);
+        order.setDocumentFileName(documentFileName);
         orderRepository.save(order);
     }
 }

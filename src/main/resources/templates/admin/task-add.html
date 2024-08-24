@@ -110,6 +110,20 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="mb-3">
                                         <div class="input-blocks">
+                                            <div class="col-md-12">
+                                                <label th:text="#{user_groups}">Users Groups</label>
+                                                <select class="form-control tagging" multiple="multiple" name="assignedToGroups"  th:field="*{assignedToGroups}">
+                                                    <option th:each="userGroupOption : ${usersGroups}"
+                                                            th:value="${userGroupOption.id}"
+                                                            th:text="${userGroupOption.name}" >UserGroups</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="mb-3">
+                                        <div class="input-blocks">
                                             <label>Priority</label>
                                             <select class="select" name="priority"  th:field="*{priority}"  th:errorclass="'is-invalid alert-danger'">
                                                 <option th:each="priorityOption : ${priorityTypes}"
@@ -192,6 +206,7 @@
 
 <!-- Select2 JS -->
 <script src="/plugins/select2/js/select2.min.js"></script>
+<script src="/plugins/select2/js/custom-select.js"></script>
 
 <!-- Sweetalert 2 -->
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>

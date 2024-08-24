@@ -39,10 +39,10 @@ public class DashboardController {
     }
 
     @GetMapping("/dashboard")
-    public String getDashboard(Model model) {
+    public String getDashboard(Model model, @AuthenticationPrincipal ErpUserDetailsModel userDetails) {
 
         model.addAttribute("clientsCount", this.clientRepository.count());
-        model.addAttribute("tasksCount", this.taskService.countAllOpenTasks());
+        model.addAttribute("tasksCount", this.taskService.countAllOpenTasks(userDetails));
         model.addAttribute("ordersCount", this.orderService.getOrdersCount());
         return "admin/dashboard";
     }

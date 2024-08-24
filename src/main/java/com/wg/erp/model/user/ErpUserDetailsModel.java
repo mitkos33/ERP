@@ -1,15 +1,18 @@
 package com.wg.erp.model.user;
 
+import com.wg.erp.model.entity.UserGroup;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
+import java.util.List;
 
 public class ErpUserDetailsModel extends User {
 
     private final String firstName;
     private final String lastName;
     private final String email;
+    private List<UserGroup> userGroups;
 
     public ErpUserDetailsModel(
             String username,
@@ -17,12 +20,14 @@ public class ErpUserDetailsModel extends User {
             Collection<? extends GrantedAuthority> authorities,
             String firstName,
             String lastName,
-            String email
+            String email,
+            List<UserGroup> userGroups
     ) {
         super(username, password, authorities);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.userGroups = userGroups;
     }
 
     public String getFirstName() {
@@ -50,5 +55,9 @@ public class ErpUserDetailsModel extends User {
         }
 
         return fullName.toString();
+    }
+
+    public List<UserGroup> getUserGroups() {
+        return userGroups;
     }
 }

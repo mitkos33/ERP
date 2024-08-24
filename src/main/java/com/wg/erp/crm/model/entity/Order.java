@@ -2,7 +2,10 @@ package com.wg.erp.crm.model.entity;
 
 import com.wg.erp.crm.model.enums.OrderStatus;
 import com.wg.erp.model.entity.BaseEntity;
+import com.wg.erp.model.entity.UserGroup;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 
 @Entity
@@ -19,10 +22,13 @@ public class Order extends BaseEntity {
     @ManyToOne
     private Document document;
 
+    private String documentFileName;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UserGroup> groups;
 
     public String getName() {
         return name;
@@ -61,5 +67,20 @@ public class Order extends BaseEntity {
         this.status = status;
     }
 
+    public String getDocumentFileName() {
+        return documentFileName;
+    }
+
+    public void setDocumentFileName(String documentFileName) {
+        this.documentFileName = documentFileName;
+    }
+
+    public List<UserGroup> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<UserGroup> groups) {
+        this.groups = groups;
+    }
 
 }
