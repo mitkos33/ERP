@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -28,7 +29,9 @@ public class User extends BaseEntity {
     private List<UserRole> roles = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<UserGroup> users_groups;
+    private Set<UserGroup> users_groups;
+
+
 
     public String getEmail() {
         return email;
@@ -79,11 +82,11 @@ public class User extends BaseEntity {
         return firstName + " " + lastName;
     }
 
-    public List<UserGroup> getUsers_groups() {
+    public Set<UserGroup> getUsers_groups() {
         return users_groups;
     }
 
-    public User setUsers_groups(List<UserGroup> users_groups) {
+    public User setUsers_groups(Set<UserGroup> users_groups) {
         this.users_groups = users_groups;
         return this;
     }

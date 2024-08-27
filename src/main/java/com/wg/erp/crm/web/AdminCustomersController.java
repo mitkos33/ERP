@@ -45,8 +45,8 @@ public class AdminCustomersController {
     }
 
     @GetMapping("")
-    public String getAllCustomers(Model model) {
-        model.addAttribute("allCustomers", this.clientService.getAllClients());
+    public String getAllCustomers(Model model, @AuthenticationPrincipal ErpUserDetailsModel userDetails) {
+        model.addAttribute("allCustomers", this.clientService.getAllClients(userDetails));
         return "admin/customers";
     }
 
@@ -80,8 +80,14 @@ public class AdminCustomersController {
     }
 
     @GetMapping("/add/{id}")
-    public String addCustomer(@PathVariable Long id, Model model) {
-        model.addAttribute("addClientDTO", this.clientService.getClientById(id));
+    public String addCustomer(@PathVariable Long id, Model model, @AuthenticationPrincipal ErpUserDetailsModel userDetails, RedirectAttributes redirectAttributes) {
+        try {
+            model.addAttribute("addClientDTO", this.clientService.getClientById(id, userDetails));
+        }
+        catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/customers";
+        }
         model.addAttribute("client_id", id);
         return "admin/customer-add";
     }

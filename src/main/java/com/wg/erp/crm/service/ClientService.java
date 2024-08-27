@@ -6,7 +6,9 @@ import com.wg.erp.crm.model.dto.ClientDetailDTO;
 import com.wg.erp.crm.model.entity.Client;
 import com.wg.erp.crm.repository.ClientRepository;
 import com.wg.erp.model.entity.User;
+import com.wg.erp.model.user.ErpUserDetailsModel;
 import com.wg.erp.repository.UserRepository;
+import com.wg.erp.service.ErpUserDetailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +28,17 @@ public class ClientService {
         this.modelMapper = modelMapper;
     }
 
-    public List<Client> getAllClients() {
-        return this.clientRepository.findAll();
+    public List<Client> getAllClients(ErpUserDetailsModel userDetails) {
+        if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return this.clientRepository.findAll();
+        }
+        else {
+            Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+            if (user.isEmpty()) {
+              throw new IllegalArgumentException("User with email " + userDetails.getUsername() + " not found!");
+            }
+            return this.clientRepository.findAllByCreatedByOrOwner(user.get(), user.get());
+        }
     }
 
     public List<ClientDetailDTO> getAllClientsDetail() {
@@ -54,10 +65,22 @@ public class ClientService {
         return  modelMapper.map(clientAddDTO, Client.class);
     }
 
-    public ClientAddDTO getClientById(Long id) {
-        return this.clientRepository.findById(id)
-                .map(client -> modelMapper.map(client, ClientAddDTO.class))
-                .orElse(ClientAddDTO.empty());
+    public ClientAddDTO getClientById(Long id, ErpUserDetailsModel userDetails) {
+        if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return this.clientRepository.findById(id)
+                    .map(client -> modelMapper.map(client, ClientAddDTO.class))
+                    .orElse(ClientAddDTO.empty());
+        }
+        else {
+            Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+            if (user.isEmpty()) {
+                throw new IllegalArgumentException("User with email " + userDetails.getUsername() + " not found!");
+            }
+            return this.clientRepository.findById(id)
+                    .filter(client -> client.getCreatedBy().equals(user.get()) || client.getOwner().equals(user.get()))
+                    .map(client -> modelMapper.map(client, ClientAddDTO.class))
+                    .orElseThrow(() -> new IllegalArgumentException("Client with id " + id + " not found or you haven't permission!"));
+        }
     }
 
     public void updateClient(ClientAddDTO clientAddDTO, Long id) {

@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tasks")
@@ -40,7 +41,7 @@ public class Task extends BaseEntity {
 
 
     @ManyToMany
-    private List<UserGroup> assignedToGroups;
+    private Set<UserGroup> assignedToGroups;
 
 
     public String getTitle() {
@@ -99,11 +100,11 @@ public class Task extends BaseEntity {
         this.createdBy = createdBy;
     }
 
-    public List<UserGroup> getAssignedToGroups() {
+    public Set<UserGroup> getAssignedToGroups() {
         return assignedToGroups;
     }
 
-    public void setAssignedToGroups(List<UserGroup> assignedToGroups) {
+    public void setAssignedToGroups(Set<UserGroup> assignedToGroups) {
         this.assignedToGroups = assignedToGroups;
     }
 }

@@ -6,6 +6,7 @@ import com.wg.erp.crm.service.DocumentService;
 import com.wg.erp.crm.service.OrderService;
 import com.wg.erp.crm.service.OrderTypeService;
 import com.wg.erp.model.user.ErpUserDetailsModel;
+import com.wg.erp.service.ErpUserDetailService;
 import com.wg.erp.service.UserGroupService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,12 +27,14 @@ public class AdminOrderController {
     private final OrderTypeService orderTypeService;
     private final DocumentService documentService;
     private final UserGroupService userGroupService;
+    private final ErpUserDetailService userDetailsService;
 
-    public AdminOrderController(OrderService orderService, OrderTypeService orderTypeService, DocumentService documentService, UserGroupService userGroupService) {
+    public AdminOrderController(OrderService orderService, OrderTypeService orderTypeService, DocumentService documentService, UserGroupService userGroupService, ErpUserDetailService userDetailsService) {
         this.orderService = orderService;
         this.orderTypeService = orderTypeService;
         this.documentService = documentService;
         this.userGroupService = userGroupService;
+        this.userDetailsService = userDetailsService;
     }
 
     @ModelAttribute("userName")
@@ -44,8 +47,13 @@ public class AdminOrderController {
     }
 
     @GetMapping("")
-    public String getOrders(Model model) {
-        model.addAttribute("orders", orderService.getAllOrders());
+    public String getOrders(Model model, @AuthenticationPrincipal ErpUserDetailsModel userDetails) {
+        if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            model.addAttribute("orders", orderService.getAllOrders());
+        }
+        else {
+            model.addAttribute("orders", orderService.getAllOrdersByAuth(userDetails));
+        }
         model.addAttribute("orderTypes", orderTypeService.getAllOrderTypes());
         return "admin/orders";
     }
@@ -73,7 +81,7 @@ public class AdminOrderController {
 
     @PostMapping("/add")
     public String addOrder(@Valid @ModelAttribute("orderAddDTO") OrderAddDTO orderAddDTO, @RequestParam("file") MultipartFile file, @RequestParam("orderId") String orderId,
-                           RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+                           RedirectAttributes redirectAttributes, BindingResult bindingResult, @AuthenticationPrincipal ErpUserDetailsModel userDetails) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("orderAddDTO", orderAddDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.orderAddDTO", bindingResult);
@@ -94,7 +102,7 @@ public class AdminOrderController {
             orderService.updateOrder(orderAddDTO, documentFileName, orderId);
         }
         else {
-            orderService.addOrder(orderAddDTO, documentFileName);
+            orderService.addOrder(orderAddDTO, documentFileName, userDetails);
         }
         return "redirect:/admin/orders";
     }

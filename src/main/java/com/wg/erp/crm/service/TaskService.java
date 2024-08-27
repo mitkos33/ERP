@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskService {
@@ -45,7 +46,7 @@ public class TaskService {
             allTasks = taskRepository.findAllByStatusInOrderByDueDateDesc(status);
         }
         else {
-           List<UserGroup> userGroups = userDetails.getUserGroups();
+           Set<UserGroup> userGroups = userDetails.getUserGroups();
            allTasks = taskRepository.findAllByAssignedToGroupsAndStatusInOrderByDueDateDesc(userGroups,status);
         }
 
@@ -67,7 +68,7 @@ public class TaskService {
             return taskRepository.findAllByStatusInOrderByDueDateDesc(status);
         }
         else {
-            List<UserGroup> userGroups = userDetails.getUserGroups();
+            Set<UserGroup> userGroups = userDetails.getUserGroups();
             return taskRepository.findAllByAssignedToGroupsAndStatusInOrderByDueDateDesc(userGroups,status);
         }
     }
@@ -103,12 +104,12 @@ public class TaskService {
     public void updateTask(TaskAddDTO taskAddDTO, long taskId) {
         Task task = this.taskRepository.findById(taskId)
                 .orElseThrow(() -> new IllegalArgumentException("Task with id " + taskId + " not found!"));
-        task.setAssignedToGroups(new ArrayList<>());
+        task.setAssignedToGroups(new HashSet<>());
         modelMapper.map(taskAddDTO, task);
         this.taskRepository.save(task);
     }
 
-    public TaskAddDTO findById(Long id) {
+    public TaskAddDTO findById(Long id, ErpUserDetailsModel userDetails) {
         Task task = this.taskRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Task with id " + id + " not found!"));
         return modelMapper.map(task, TaskAddDTO.class);
@@ -127,8 +128,30 @@ public class TaskService {
             return taskRepository.countAllByStatusIn(status);
         }
         else {
-            List<UserGroup> userGroups = userDetails.getUserGroups();
+            Set<UserGroup> userGroups = userDetails.getUserGroups();
             return taskRepository.countAllByAssignedToGroupsAndStatusIn(userGroups,status);
         }
     }
+
+    public TaskAddDTO findByIdAndUser(Long id, ErpUserDetailsModel userDetails) {
+
+        if (userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return  modelMapper.map(taskRepository.findById(id), TaskAddDTO.class);
+        }
+
+
+        Optional<User> user = userRepository.findByEmail(userDetails.getEmail());
+        Set<UserGroup> userGroups = userDetails.getUserGroups();
+        if (user.isEmpty()){
+            throw new IllegalArgumentException("User with email " + userDetails.getEmail() + " not found!");
+        }
+
+        Optional<Task> task = taskRepository.findByIdAndCreatedByOrAssignedToGroups(id, user.get(), userGroups);
+        if (task.isEmpty()) {
+            throw  new IllegalArgumentException("Task with id " + id + " not found or you haven't permissions!");
+        }
+        return modelMapper.map(task, TaskAddDTO.class);
+    }
+
+
 }

@@ -22,6 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 @SpringBootTest
@@ -86,7 +87,7 @@ public class TaskControllerIT {
         ErpUserDetailsModel userDetails = new ErpUserDetailsModel(
                 "testUsername", "testPassword",
                 AuthorityUtils.createAuthorityList("ROLE_ADMIN"),
-                "Test", "User", "test@test.com", new ArrayList<>()
+                "Test", "User", "test@test.com", new HashSet<>()
         );
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

@@ -113,8 +113,17 @@ public class AdminTaskController {
     }
 
     @GetMapping("/add/{id}")
-    public String editTask(@PathVariable Long id, Model model) {
-        TaskAddDTO task = this.taskService.findById(id);
+    public String editTask(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes, @AuthenticationPrincipal ErpUserDetailsModel userDetails) {
+
+        TaskAddDTO task = null;
+        try {
+            task = this.taskService.findByIdAndUser(id,userDetails);
+        }
+        catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/tasks";
+        }
+
         model.addAttribute("taskAddDTO", task);
         model.addAttribute("priorityTypes", PriorityType.values());
         model.addAttribute("statusTypes", StatusType.values());

@@ -6,13 +6,14 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class ErpUserDetailsModel extends User {
 
     private final String firstName;
     private final String lastName;
     private final String email;
-    private List<UserGroup> userGroups;
+    private Set<UserGroup> userGroups;
 
     public ErpUserDetailsModel(
             String username,
@@ -21,7 +22,7 @@ public class ErpUserDetailsModel extends User {
             String firstName,
             String lastName,
             String email,
-            List<UserGroup> userGroups
+            Set<UserGroup> userGroups
     ) {
         super(username, password, authorities);
         this.firstName = firstName;
@@ -57,7 +58,7 @@ public class ErpUserDetailsModel extends User {
         return fullName.toString();
     }
 
-    public List<UserGroup> getUserGroups() {
+    public Set<UserGroup> getUserGroups() {
         return userGroups;
     }
 }

@@ -2,6 +2,7 @@ package com.wg.erp.crm.model.entity;
 
 import com.wg.erp.crm.model.enums.OrderStatus;
 import com.wg.erp.model.entity.BaseEntity;
+import com.wg.erp.model.entity.User;
 import com.wg.erp.model.entity.UserGroup;
 import jakarta.persistence.*;
 
@@ -29,6 +30,10 @@ public class Order extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserGroup> groups;
+
+    @ManyToOne
+    private User createdBy;
+
 
     public String getName() {
         return name;
@@ -83,4 +88,11 @@ public class Order extends BaseEntity {
         this.groups = groups;
     }
 
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
 }

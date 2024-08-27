@@ -65,8 +65,7 @@
 
     <div class="page-wrapper notes-page-wrapper">
         <div class="content">
-
-
+            <p th:if="${error}" th:text="${error}" class="errors alert alert-danger mt-5">Error</p>
             <div class="page-header page-add-notes">
                 <div class="add-item d-flex">
                     <div class="page-title">
